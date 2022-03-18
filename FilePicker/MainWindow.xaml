@@ -1,0 +1,83 @@
+﻿<Window x:Class="FilePicker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FilePicker"
+        mc:Ignorable="d"
+        Title="Pr0n Chooser" Height="500" Width="1200">
+
+    <Window.Resources>
+        <ResourceDictionary Source="ButtonStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#9900ff" Offset="1.0" />
+            <GradientStop Color="#4400ff" Offset="0.00" />
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <StackPanel Orientation="Horizontal">
+        <Button Name="PlayBtn" Content="Init..." Click="PlayBtn_OnClick" />
+        <Grid Margin="0 50 50 50" VerticalAlignment="Center"
+              MouseLeftButtonDown="PlayAgain"
+              MouseRightButtonDown="ShowInExplorer">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Text="Last Played"
+                   TextDecorations="Underline"
+                   FontWeight="Bold" FontSize="24pt"
+                Padding="7 0 0 20 "
+                   Grid.Row ="0" Grid.Column="0" Grid.ColumnSpan="2" />
+
+            <Label Content="RootFolder:"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="1" Grid.Column="0" />
+            <Label Content="" Name="RootFolder"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="1" Grid.Column="1" />
+
+            <Label Content="BaseFolder:"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="2" Grid.Column="0" />
+            <Label Content="" Name="BaseFolder"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="2" Grid.Column="1" />
+
+            <Label Content="SubFolder:"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="3" Grid.Column="0" />
+            <Label Content="" Name="SubFolder"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="3" Grid.Column="1" />
+
+            <Label Content="File:"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="4" Grid.Column="0" />
+            <Label Name="FileName"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="4" Grid.Column="1" />
+
+            <Label Content="Created At:"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="5" Grid.Column="0" />
+            <Label Content="" Name="Date"
+                   FontWeight="SemiBold" FontSize="24pt"
+                   Grid.Row ="5" Grid.Column="1" />
+        </Grid>
+    </StackPanel>
+</Window>
