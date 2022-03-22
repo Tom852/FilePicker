@@ -3,14 +3,15 @@
                     xmlns:local="clr-namespace:Pr0nChooser">
 
     <Style TargetType="Button">
-        <Setter Property="Width" Value="222"></Setter>
-        <Setter Property="Height" Value="222"></Setter>
-        <Setter Property="FontSize" Value="48pt"></Setter>
+        <Setter Property="Width" Value="50"></Setter>
+        <Setter Property="Height" Value="50"></Setter>
+        <Setter Property="FontSize" Value="16pt"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>
         <Setter Property="Foreground" Value="Black"></Setter>
-        <Setter Property="Margin" Value="100 0"></Setter>
+        <Setter Property="Margin" Value="10"></Setter>
         <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="BorderBrush" Value="DeepPink"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
 
         <Setter Property="Template">
@@ -18,7 +19,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
                         <Ellipse Stroke="{TemplateBinding BorderBrush}"
-                                 StrokeThickness="5"
+                                 StrokeThickness="{TemplateBinding BorderThickness}"
                                  Fill="{TemplateBinding Background}">
                         </Ellipse>
                         <ContentPresenter Content="{TemplateBinding Content}"

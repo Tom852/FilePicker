@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilePicker"
         mc:Ignorable="d"
-        Title="Pr0n Chooser" Height="500" Width="1200">
+        Title="File Picker" Height="500" Width="1200">
 
     <Window.Resources>
         <ResourceDictionary Source="ButtonStyle.xaml"></ResourceDictionary>
@@ -17,67 +17,19 @@
             <GradientStop Color="#4400ff" Offset="0.00" />
         </LinearGradientBrush>
     </Window.Background>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Name="DefaultBtn" Content="▶" Click="DefaultView" />
+            <Button Name="SettingsBtn" Content="⚙" Click="SettingsView" />
+            <Button Name="ScanFiles" Content="🔎" Click="Scan"></Button>
+            <Button Name="Info" Content="❓" Click="HelpView"></Button>
+        </StackPanel>
+    <ContentControl x:Name="contentControl" Grid.Row="1"/>
+    </Grid>
 
-    <StackPanel Orientation="Horizontal">
-        <Button Name="PlayBtn" Content="Init..." Click="PlayBtn_OnClick" />
-        <Grid Margin="0 50 50 50" VerticalAlignment="Center"
-              MouseLeftButtonDown="PlayAgain"
-              MouseRightButtonDown="ShowInExplorer">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <TextBlock
-                Text="Last Played"
-                   TextDecorations="Underline"
-                   FontWeight="Bold" FontSize="24pt"
-                Padding="7 0 0 20 "
-                   Grid.Row ="0" Grid.Column="0" Grid.ColumnSpan="2" />
-
-            <Label Content="RootFolder:"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="1" Grid.Column="0" />
-            <Label Content="" Name="RootFolder"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="1" Grid.Column="1" />
-
-            <Label Content="BaseFolder:"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="2" Grid.Column="0" />
-            <Label Content="" Name="BaseFolder"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="2" Grid.Column="1" />
-
-            <Label Content="SubFolder:"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="3" Grid.Column="0" />
-            <Label Content="" Name="SubFolder"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="3" Grid.Column="1" />
-
-            <Label Content="File:"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="4" Grid.Column="0" />
-            <Label Name="FileName"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="4" Grid.Column="1" />
-
-            <Label Content="Created At:"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="5" Grid.Column="0" />
-            <Label Content="" Name="Date"
-                   FontWeight="SemiBold" FontSize="24pt"
-                   Grid.Row ="5" Grid.Column="1" />
-        </Grid>
-    </StackPanel>
 </Window>

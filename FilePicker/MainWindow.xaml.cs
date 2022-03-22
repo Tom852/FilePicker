@@ -1,4 +1,11 @@
 ﻿using FilePicker;
+using FilePicker.DataAccess;
+using FilePicker.Scanner;
+using FilePicker.Settings;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,39 +16,71 @@ namespace FilePicker
     /// </summary>
     public partial class MainWindow : Window
     {
-        public FileChooser FC { get; private set; }
-        public FileRepresentation LastPlayed { get; set; }
+        private SettingsModel Settings { get; set; }
+        private SqLiteService sqLiteService { get; set; }
+
+        private IEnumerable<FileRepresentation> data { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            this.ContentRendered += (o, a) =>
+            Settings = SettingsPersistence.Load();
+
+            this.sqLiteService = new SqLiteService();
+            this.data = sqLiteService.ReadData();
+            this.contentControl.Content = new MainControl(this.data);
+        }
+
+        private void DefaultView(object sender, RoutedEventArgs e)
+        {
+            this.contentControl.Content = new MainControl(this.data);
+
+        }
+
+        private void SettingsView(object sender, RoutedEventArgs e)
+        {
+            var s = new SettingsControl(Settings);
+            s.Unloaded += (a, b) =>
             {
-                FC = new FileChooser();
-                PlayBtn.Content = "Play";
+                SettingsPersistence.Store(Settings);
             };
+            this.contentControl.Content = s;
         }
 
-        private void PlayBtn_OnClick(object sender, RoutedEventArgs e)
+        private async void Scan(object sender, RoutedEventArgs e)
         {
-            FileRepresentation f = FC.Select();
-            RootFolder.Content = f.RootFolder;
-            BaseFolder.Content = f.BaseFolder;
-            SubFolder.Content = f.SubFolder;
-            FileName.Content = f.FileName;
-            Date.Content = f.DateAsString;
-            LastPlayed = f;
-            f.Open();
+            var w = new ProgressBarBlocker();
+            var scnaner = new FileScanner();
+            scnaner.OnProgress += (a, progress)
+                => Dispatcher.Invoke(() => w.ProgressBar.Value = progress); // tut noch nicht so ganz
+
+            var cts = new CancellationTokenSource();
+            var filesTask = Task.Run( () => scnaner.Scan(Settings.Folders, cts.Token));
+            w.Show();
+            w.Closing += (a, b) => cts.Cancel();
+
+            IEnumerable<FileRepresentation> files = null;
+
+            this.IsEnabled = false;
+            try
+            {
+                files = await filesTask;
+            }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
+
+            this.IsEnabled = true;
+            w.Close();
+
+            if (files != null)
+            {
+                this.sqLiteService.RebuildDataBaseByData(files);
+            }
         }
 
-        private void PlayAgain(object sender, MouseButtonEventArgs e)
+        private void HelpView(object sender, RoutedEventArgs e)
         {
-            LastPlayed?.Open();
-        }
-
-        private void ShowInExplorer(object sender, MouseButtonEventArgs e)
-        {
-            LastPlayed?.ShowInExplorer();
+            this.contentControl.Content = new InfoPage();
         }
     }
 }

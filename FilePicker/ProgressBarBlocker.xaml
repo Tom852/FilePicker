@@ -1,0 +1,21 @@
+﻿<Window x:Class="FilePicker.ProgressBarBlocker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FilePicker"
+        mc:Ignorable="d"
+        Title="Importing Data Structure" Height="147.235" Width="402.88">
+    <Grid>
+        <ProgressBar Name="ProgressBar" IsIndeterminate="False" Maximum="100" Value="0" Height="20" Margin="30, 5">
+            <ProgressBar.Foreground>
+                <LinearGradientBrush StartPoint="0.5 0" EndPoint="0.5 1">
+                    <GradientStop Color="#FFDDEEFF" Offset="0.0" />
+                    <GradientStop Color="DeepPink" Offset="0.5" />
+                    <GradientStop Color="#FFDDEEFF" Offset="1" />
+                </LinearGradientBrush>
+            </ProgressBar.Foreground>
+        </ProgressBar>
+        <Button Content="Abort" HorizontalAlignment="Left" Margin="290,86,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+    </Grid>
+</Window>
