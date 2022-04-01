@@ -4,6 +4,7 @@ using FilePicker.Scanner;
 using FilePicker.Settings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,6 +45,7 @@ namespace FilePicker
             {
                 SettingsPersistence.Store(Settings);
             };
+            s.CountFiles(this.data.AsQueryable());
             this.contentControl.Content = s;
         }
 
@@ -75,6 +77,8 @@ namespace FilePicker
             if (files != null)
             {
                 this.sqLiteService.RebuildDataBaseByData(files);
+                this.data = files;
+                SettingsView(this, null);
             }
         }
 

@@ -71,6 +71,12 @@ namespace FilePicker
                 filesToPickFrom = this.preFilteredData;
             }
 
+            if (filesToPickFrom.Count() == 0)
+            {
+                // todo würd hjier eher ne exception udn das im UI schon anzzeigen
+                return;
+            }
+
             int targetIndex = new Random().Next(filesToPickFrom.Count());
             var targetFile = filesToPickFrom.ElementAt(targetIndex);
             FileHandler.Open(targetFile);

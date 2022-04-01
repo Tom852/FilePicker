@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FilePicker.Util;
+using Gridify;
+using FilePicker.Scanner;
 
 namespace FilePicker.Settings
 {
@@ -32,6 +34,46 @@ namespace FilePicker.Settings
             DataContext = this.Ctx;
         }
 
+        public void CountFiles(IQueryable<FileRepresentation> data)
+        {
+            var builder = new QueryBuilder<FileRepresentation>();
+            Ctx.MainFilters
+                .Select(f => f.FilterExpression)
+                .Where(expr => !string.IsNullOrWhiteSpace(expr))
+                .ToList()
+                .ForEach(expr => builder.AddCondition(expr));
+            var prefilteredData = builder.Build(data);
+
+
+            foreach (var item in this.Ctx.MainFilters)
+            {
+                try
+                {
+                    var count = data.ApplyFiltering(item.FilterExpression).Count();
+                    item.AdditionalText = $"{count} files match";
+                }
+                catch
+                {
+                    item.AdditionalText = "Filter invalid";
+                }
+            }
+
+            foreach (var item in this.Ctx.Prevalences)
+            {
+                try
+                {
+                    var count = prefilteredData.ApplyFiltering(item.FilterExpression).Count();
+                    item.AdditionalText = $"{count} files in pool";
+                }
+                catch
+                {
+                    item.AdditionalText = "Filter invalid";
+                }
+            }
+
+            TotalFileCountBeforeFilter.Content = $"{data.Count()} files found";
+            TotalFileCountAfterFilter.Content = $"{prefilteredData.Count()} files remain";
+        }
 
         private void RemoveFolders_Click(object sender, RoutedEventArgs e)
         {
@@ -86,6 +128,49 @@ namespace FilePicker.Settings
             Ctx.Prevalences.RemoveAt(index);
         }
 
+        private void OnPrevalenceTextChange(object sender, TextChangedEventArgs args)
+        {
+            var sendingElement = (sender as FrameworkElement).DataContext;
+            int index = PrevalencesFiltersListView.Items.IndexOf(sendingElement);
+            var item = this.Ctx.Prevalences[index];
+
+            var filterTerm = (sender as TextBox).Text;
+            var builder = new QueryBuilder<FileRepresentation>()
+                .AddCondition(filterTerm);
+
+            var isValid = builder.IsValid();
+
+            if (isValid)
+            {
+                item.AdditionalText = "Rescan required";
+            }
+            else
+            {
+                item.AdditionalText = "Filter invalid";
+            }
+        }
+
+        private void OnMainFilterTextChange(object sender, TextChangedEventArgs args)
+        {
+            var sendingElement = (sender as FrameworkElement).DataContext;
+            int index = MainFiltersListView.Items.IndexOf(sendingElement);
+            var item = this.Ctx.MainFilters[index];
+
+            var filterTerm = (sender as TextBox).Text;
+            var builder = new QueryBuilder<FileRepresentation>()
+                .AddCondition(filterTerm);
+            var isValid = builder.IsValid();
+
+            if (isValid)
+            {
+                item.AdditionalText = "Rescan required";
+            }
+            else
+            {
+                item.AdditionalText = "Filter invalid";
+            }
+        }
+
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (!IsDigit(e.Key))
@@ -99,6 +184,11 @@ namespace FilePicker.Settings
             // wtF????
             return key == Key.D1 || key == Key.D2 || key == Key.D3 || key == Key.D4 || key == Key.D5 || key == Key.D6 || key == Key.D7 || key == Key.D8 || key == Key.D9 || key == Key.D0 ||
                 key == Key.NumPad0 || key == Key.NumPad1 || key == Key.NumPad2 || key == Key.NumPad3 || key == Key.NumPad4 || key == Key.NumPad5 || key == Key.NumPad6 || key == Key.NumPad7 || key == Key.NumPad8 || key == Key.NumPad9;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

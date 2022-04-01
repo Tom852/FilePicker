@@ -6,14 +6,13 @@
              xmlns:local="clr-namespace:FilePicker.Settings"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1200">
-    <UserControl.Background>blue</UserControl.Background>
     
     <StackPanel Orientation="Horizontal" >
         <!--1-->
-        <StackPanel Orientation="Vertical" Width="300" Margin="20 0">
+        <StackPanel Orientation="Vertical" MinWidth="300" Margin="20 0 10 0">
             <Label FontSize="16pt" FontWeight="Bold" Content="Folders" Margin="0 0 0 20" HorizontalContentAlignment="Center"/>
             <ListBox Name="Folders" ItemsSource="{Binding Folders}" MinHeight ="100" SelectionMode="Multiple"/>
-
+            <Label Content="Rescan required" Name="TotalFileCountBeforeFilter" HorizontalContentAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="RemoveFolders" Content="✖" Margin="20" Click="RemoveFolders_Click"/>
                 <Button Name="AddFolder" Content="➕" Margin="20" Click="AddFolder_Click"/>
@@ -22,7 +21,7 @@
         </StackPanel>
         <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Gray" />
         <!--2-->
-        <StackPanel Orientation="Vertical" Margin="20 0" Width="350">
+        <StackPanel Orientation="Vertical" Margin="5 0" Width="Auto">
             <Label FontSize="16pt" FontWeight="Bold" Content="Main Filters" Margin="0 0 0 12" HorizontalContentAlignment="Center"/>
 
             <ListView Name="MainFiltersListView" ItemsSource="{Binding MainFilters}"
@@ -31,24 +30,26 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding FilterExpression}" Width="400" Height="18" FontFamily="Consolas"/>
+                            <TextBox Text="{Binding FilterExpression}" Width="275" Height="18" FontFamily="Consolas" TextChanged="OnMainFilterTextChange"/>
                             <Button 
-                                    Name="MainFilterDeleteBtn" Content="❌" Margin="5"
+                                    Name="MainFilterDeleteBtn" Content="❌" Margin="10 5 0 5"
                                     Width="20px" Height="20px" FontSize="7pt"
                                     Foreground="#990000"
                                     Click="XBtnMainFilters_OnClick"
                                     ToolTip="Remove List Entry"/>
+                            <Label Content="{Binding AdditionalText}" Name ="MainFilterInfoText" Width="100" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Label Content="Rescan required" Name="TotalFileCountAfterFilter" HorizontalContentAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="AddMainFilterBtn" Content="➕" Margin="20" Click="AddMainFilter_Click"/>
             </StackPanel>
         </StackPanel>
         <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Gray" />
         <!--3-->
-        <StackPanel Orientation="Vertical" Width="400" Margin="20 0">
+        <StackPanel Orientation="Vertical" Width="Auto" Margin="5 0">
             <Label FontSize="16pt" FontWeight="Bold" Content="Prevalences" Margin="0 0 0 12" HorizontalContentAlignment="Center"/>
 
             <ListView Name="PrevalencesFiltersListView" ItemsSource="{Binding Prevalences}"
@@ -57,7 +58,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <TextBox Text="{Binding FilterExpression}" Width ="300" Height="18" FontFamily="Consolas" />
+                            <TextBox Text="{Binding FilterExpression}" Width ="275" Height="18" FontFamily="Consolas" TextChanged="OnPrevalenceTextChange"/>
                             <TextBox Text="{Binding RelativePrevalence}" Width="20" Height="18" FontFamily="Consolas" Margin="5" KeyDown="TextBox_KeyDown"/>
                             <Button 
                                     Name="PrevalenceFilterDeleteBtn" Content="❌" Margin="5 0"
@@ -65,6 +66,7 @@
                                     Foreground="#990000"
                                     Click="XBtnPrevalenceFilters_OnClick"
                                     ToolTip="Remove Entry"/>
+                            <Label Content="{Binding AdditionalText}" Name ="PrevalenceFilterInfoText" Width="100" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
