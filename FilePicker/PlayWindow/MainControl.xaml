@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="FilePicker.PlayWindow.MainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FilePicker.PlayWindow"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/FilePicker;component/ButtonStyle.xaml"/>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Horizontal">
+        <Button Margin ="100 0 50 0" Name="PlayBtn" Content="Play" Click="PlayBtn_OnClick" Width="222" Height="222" FontSize="48pt" BorderThickness="5px"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="PrevPrev">
+                <Label Margin="80 20 20 20" FontSize="10pt" FontWeight="Bold" Content="Before:"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label FontWeight="Bold" FontSize="10pt" Content="{Binding PrevPrev.Directory}"/>
+                    <Label FontWeight="Bold"  FontSize="10pt" Content="{Binding PrevPrev.Name}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="Prev">
+                <Label Margin="40 20 40 20" FontSize="14pt" FontWeight="Bold" Content="Prev:"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label FontWeight="Bold" FontSize="12pt" Content="{Binding Prev.Directory}"/>
+                    <Label FontWeight="Bold" FontSize="12pt" Content="{Binding Prev.Name}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="Current">
+                <Label Margin="0 20 20 20" FontSize="18pt" FontWeight="Bold" Content="Current:"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label FontWeight="Bold"  FontSize="14pt" Content="{Binding Current.Directory}"/>
+                    <Label FontWeight="Bold"  FontSize="14pt" Content="{Binding Current.Name}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="Next">
+                <Label Margin="40 20 40 20" FontSize="14pt" FontWeight="Bold" Content="Next:"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label FontWeight="Bold"  FontSize="12pt" Content="{Binding Next.Directory}"/>
+                    <Label FontWeight="Bold"  FontSize="12pt" Content="{Binding Next.Name}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="NextNext">
+                <Label Margin="80 20 30 20" FontSize="10pt" FontWeight="Bold" Content="After:"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label FontWeight="Bold"  FontSize="10pt" Content="{Binding NextNext.Directory}"/>
+                    <Label FontWeight="Bold"  FontSize="10pt" Content="{Binding NextNext.Name}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

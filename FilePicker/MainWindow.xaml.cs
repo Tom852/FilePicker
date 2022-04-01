@@ -1,5 +1,6 @@
 ﻿using FilePicker;
 using FilePicker.DataAccess;
+using FilePicker.PlayWindow;
 using FilePicker.Scanner;
 using FilePicker.Settings;
 using System;
@@ -21,6 +22,8 @@ namespace FilePicker
         private SqLiteService sqLiteService { get; set; }
 
         private IEnumerable<FileRepresentation> data { get; set; }
+        public PlayWindowViewModel PlayList { get; }
+        public FileChooser Chooser { get; }
 
         public MainWindow()
         {
@@ -29,12 +32,22 @@ namespace FilePicker
 
             this.sqLiteService = new SqLiteService();
             this.data = sqLiteService.ReadData();
-            this.contentControl.Content = new MainControl(this.data);
+
+            this.PlayList = new PlayWindowViewModel();
+            this.Chooser = new FileChooser(this.data, this.Settings);
+
+            if (this.data.Any())  // todo: irgend so nen "is valid state" wäre mir durchgängig lieber
+            {
+                this.PlayList.Next = Chooser.ChooseFile();
+                this.PlayList.NextNext = Chooser.ChooseFile();
+            }
+            
+            this.contentControl.Content = new MainControl(this.Chooser, this.PlayList);
         }
 
         private void DefaultView(object sender, RoutedEventArgs e)
         {
-            this.contentControl.Content = new MainControl(this.data);
+            this.contentControl.Content = new MainControl(this.Chooser, this.PlayList);
 
         }
 

@@ -93,9 +93,11 @@
     <Compile Include="InfoPage.xaml.cs">
       <DependentUpon>InfoPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainControl.xaml.cs">
+    <Compile Include="PlayWindow\MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlayWindow\FileChooser.cs" />
+    <Compile Include="PlayWindow\PlayWindowViewModel.cs" />
     <Compile Include="ProgressBarBlocker.xaml.cs">
       <DependentUpon>ProgressBarBlocker.xaml</DependentUpon>
     </Compile>
@@ -130,7 +132,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MainControl.xaml">
+    <Page Include="PlayWindow\MainControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
