@@ -26,9 +26,9 @@ namespace FilePicker.PlayWindow
     public partial class MainControl : UserControl
     {
         public FileChooser Chooser { get; }
-        public PlayWindowViewModel PlayList { get; }
+        public Playlist PlayList { get; }
 
-        public MainControl(FileChooser chooser, PlayWindowViewModel playlist)
+        public MainControl(FileChooser chooser, Playlist playlist)
         {
             this.Chooser = chooser;
             this.PlayList = playlist;
@@ -36,6 +36,7 @@ namespace FilePicker.PlayWindow
 
             InitializeComponent();
          }
+
 
         private void PlayBtn_OnClick(object sender, RoutedEventArgs e)
         {

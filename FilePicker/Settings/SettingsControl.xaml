@@ -30,7 +30,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding FilterExpression}" Width="275" Height="18" FontFamily="Consolas" TextChanged="OnMainFilterTextChange"/>
+                            <TextBox Text="{Binding FilterExpression}" Width="275" Height="18" FontFamily="Consolas" TextChanged="OnMainFilterTextChange" LostFocus="OnLoseFocus"/>
                             <Button 
                                     Name="MainFilterDeleteBtn" Content="❌" Margin="10 5 0 5"
                                     Width="20px" Height="20px" FontSize="7pt"
@@ -58,8 +58,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <TextBox Text="{Binding FilterExpression}" Width ="275" Height="18" FontFamily="Consolas" TextChanged="OnPrevalenceTextChange"/>
-                            <TextBox Text="{Binding RelativePrevalence}" Width="20" Height="18" FontFamily="Consolas" Margin="5" KeyDown="TextBox_KeyDown"/>
+                            <TextBox Text="{Binding FilterExpression}" Width ="275" Height="18" FontFamily="Consolas" TextChanged="OnPrevalenceTextChange" LostFocus="OnLoseFocus"/>
+                            <TextBox Text="{Binding RelativePrevalence}" Width="20" Height="18" FontFamily="Consolas" Margin="5" KeyDown="PrevalenceTextBox_KeyDown" LostFocus="OnLoseFocus"/>
                             <Button 
                                     Name="PrevalenceFilterDeleteBtn" Content="❌" Margin="5 0"
                                     Width="20px" Height="20px" FontSize="7pt"

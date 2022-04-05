@@ -23,7 +23,7 @@ namespace FilePicker.Scanner
 
             Directory = Path.GetDirectoryName(s);
             Name = Path.GetFileNameWithoutExtension(s);
-            Extension = Path.GetFileName(s);
+            Extension = Path.GetExtension(s);
             FullPath = Path.GetFullPath(s);
 
             CreatedAt = File.GetCreationTime(s);

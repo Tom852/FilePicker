@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FilePicker.PlayWindow
 {
-    public class PlayWindowViewModel : INotifyPropertyChanged
+    public class Playlist : INotifyPropertyChanged
     {
         public FileRepresentation PrevPrev { get; set; }
         public FileRepresentation Prev { get; set; }

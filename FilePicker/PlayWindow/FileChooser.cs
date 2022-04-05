@@ -65,7 +65,6 @@ namespace FilePicker.PlayWindow
 
             if (filesToPickFrom.Count() == 0)
             {
-                // todo: nach dem scan schon invalide zustände erkennen und melden
                 throw new ApplicationException("There are empty pools or not files at all");
             }
 

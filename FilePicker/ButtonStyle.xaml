@@ -34,6 +34,10 @@
                 <Setter Property="BorderBrush" Value="DeepSkyBlue"></Setter>
                 <Setter Property="Foreground" Value="#00ffb7"></Setter>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="BorderBrush" Value="Gray"></Setter>
+                <Setter Property="Foreground" Value="Gray"></Setter>
+            </Trigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

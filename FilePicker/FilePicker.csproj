@@ -97,13 +97,16 @@
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PlayWindow\FileChooser.cs" />
-    <Compile Include="PlayWindow\PlayWindowViewModel.cs" />
+    <Compile Include="PlayWindow\Playlist.cs" />
     <Compile Include="ProgressBarBlocker.xaml.cs">
       <DependentUpon>ProgressBarBlocker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Scanner\FileCounter.cs" />
+    <Compile Include="Scanner\FileCountResult.cs" />
     <Compile Include="Scanner\FileHandler.cs" />
     <Compile Include="Scanner\FileRepresentation.cs" />
     <Compile Include="Scanner\FileScanner.cs" />
+    <Compile Include="Settings\FilterValidator.cs" />
     <Compile Include="Settings\MainFilter.cs" />
     <Compile Include="Settings\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
@@ -111,6 +114,9 @@
     <Compile Include="Settings\PrevalenceFilter.cs" />
     <Compile Include="Settings\SettingsModel.cs" />
     <Compile Include="Settings\SettingsPersistence.cs" />
+    <Compile Include="Status\ApplicationStatus.cs" />
+    <Compile Include="Status\StatusChecker.cs" />
+    <Compile Include="Status\StatusToColorConverter.cs" />
     <Compile Include="Util\ListConverter.cs" />
     <Page Include="ButtonStyle.xaml">
       <SubType>Designer</SubType>
