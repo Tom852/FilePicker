@@ -39,6 +39,8 @@ namespace FilePicker.Settings
         {
             var builder = new QueryBuilder<FileRepresentation>()
                  .AddCondition(filterExpression);
+
+            // todo: single words, die aber gültige FilterExpr sind wie eta "FullPath" werden nicht als fhelerhaft erkannt. ijwas all(c => char.isLetter(c)) checken.
             return builder.IsValid();
         }
     }

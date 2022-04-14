@@ -15,6 +15,8 @@ namespace FilePicker.PlayWindow
         public IQueryable<FileRepresentation> Data { get; }
         public SettingsModel Settings { get; }
 
+        private Random rnd = new Random();
+
         public FileChooser(IEnumerable<FileRepresentation> data, SettingsModel settings)
         {
             this.Data = data.AsQueryable();
@@ -65,16 +67,12 @@ namespace FilePicker.PlayWindow
 
             if (filesToPickFrom.Count() == 0)
             {
-                throw new ApplicationException("There are empty pools or not files at all");
+                throw new ApplicationException("There are empty pools or no files at all");
             }
 
-            int targetIndex = new Random().Next(filesToPickFrom.Count());
+            int targetIndex = rnd.Next(filesToPickFrom.Count());
             var targetFile = filesToPickFrom.ElementAt(targetIndex);
             return targetFile;
         }
-
-
-
-
     }
 }

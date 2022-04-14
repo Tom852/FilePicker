@@ -24,7 +24,7 @@ namespace FilePicker.Scanner
             Directory = Path.GetDirectoryName(s);
             Name = Path.GetFileNameWithoutExtension(s);
             Extension = Path.GetExtension(s);
-            FullPath = Path.GetFullPath(s);
+            FullPath = Path.GetFullPath(s); // todo: da zusammengeesetzt muss man das nicht ablegen extra.
 
             CreatedAt = File.GetCreationTime(s);
             ModifiedAt = File.GetLastWriteTime(s);

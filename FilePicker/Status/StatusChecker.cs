@@ -13,6 +13,8 @@ namespace FilePicker.Status
         private FilterValidator Validator { get; } = new FilterValidator();
         private FileCounter Counter { get; } = new FileCounter();
 
+        // todo: settings und data sind iwie einfach immer parameter... würde wohl sinn ergeben, sdie global zu hinterlegen als singleton oder static :D.
+        // dann könnt man settings auch bei jedem change direkt storen.
         public ApplicationStatusEnum GetStatusAfterStartup(IEnumerable<FileRepresentation> data, SettingsModel settings)
         {
             var filterStatus = Validator.Validate(settings);

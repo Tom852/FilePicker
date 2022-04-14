@@ -6,7 +6,7 @@
         xmlns:status="clr-namespace:FilePicker.Status"
         xmlns:local="clr-namespace:FilePicker"
         mc:Ignorable="d"
-        Title="File Picker" Height="500" Width="1280">
+        Title="File Picker" Height="550" Width="1280">
 
     <Window.Resources>
         <ResourceDictionary>

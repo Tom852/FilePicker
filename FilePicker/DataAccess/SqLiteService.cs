@@ -92,11 +92,6 @@ namespace FilePicker.DataAccess
                     {
                         cmdTeext.AppendLine(";");
                     }
-
-                    // temp
-                    //var cmd2 = conn.CreateCommand();
-                    //cmd2.CommandText = $"INSERT INTO {this.TableName} VALUES " + $"('{Escape(f.Directory)}', '{Escape(f.Name)}', '{f.Extension}', '{Escape(f.FullPath)}', '{f.CreatedAt.ToString(this.dateformat)}', '{f.ModifiedAt.ToString(this.dateformat)}', {f.SizeB})";
-                    //cmd2.ExecuteNonQuery();
                 }
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = cmdTeext.ToString();
@@ -122,7 +117,6 @@ namespace FilePicker.DataAccess
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    string myreader = reader.GetString(0);
                     FileRepresentation r = new FileRepresentation()
                     {
                         Directory = reader.GetString(0),

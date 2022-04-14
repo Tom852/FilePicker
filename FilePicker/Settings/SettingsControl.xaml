@@ -21,7 +21,7 @@
         </StackPanel>
         <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Gray" />
         <!--2-->
-        <StackPanel Orientation="Vertical" Margin="5 0" Width="Auto">
+        <StackPanel Orientation="Vertical" Margin="5 0" Width="420">
             <Label FontSize="16pt" FontWeight="Bold" Content="Main Filters" Margin="0 0 0 12" HorizontalContentAlignment="Center"/>
 
             <ListView Name="MainFiltersListView" ItemsSource="{Binding MainFilters}"
@@ -49,7 +49,7 @@
         </StackPanel>
         <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Gray" />
         <!--3-->
-        <StackPanel Orientation="Vertical" Width="Auto" Margin="5 0">
+        <StackPanel Orientation="Vertical" Width="450" Margin="5 0">
             <Label FontSize="16pt" FontWeight="Bold" Content="Prevalences" Margin="0 0 0 12" HorizontalContentAlignment="Center"/>
 
             <ListView Name="PrevalencesFiltersListView" ItemsSource="{Binding Prevalences}"
@@ -66,7 +66,7 @@
                                     Foreground="#990000"
                                     Click="XBtnPrevalenceFilters_OnClick"
                                     ToolTip="Remove Entry"/>
-                            <Label Content="{Binding AdditionalText}" Name ="PrevalenceFilterInfoText" Width="105" />
+                            <Label Content="{Binding AdditionalText}" Name ="PrevalenceFilterInfoText" Width="110" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

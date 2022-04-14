@@ -24,8 +24,7 @@ namespace FilePicker
         private SqLiteService sqLiteService { get; set; }
 
         private IEnumerable<FileRepresentation> data { get; set; }
-        public Playlist PlayList { get; set;  } // keepinbg this reference here since if user switches tabs we need to know the last playlist.
-        public FileChooser Chooser { get; set; }
+        public Playlist PlayList { get; set;  } // keepinbg this reference here since if user switches tabs we need to know the last playlist. wenn man data und settings hält könnt man playlist auch glei.
         public ApplicationStatus ApplicationStatus { get; }
         public FileCounter FileCounter { get; } = new FileCounter();
         public StatusChecker StatusChecker { get; } = new StatusChecker();
@@ -53,7 +52,7 @@ namespace FilePicker
             if (this.ApplicationStatus.CanPlay)
             {
                 InitPlayList();
-                this.contentControl.Content = new MainControl(this.Chooser, this.PlayList);
+                this.contentControl.Content = new MainControl(this.PlayList);
             }
             else
             {
@@ -73,20 +72,13 @@ namespace FilePicker
 
             this.ApplicationStatus.RequiresNewPlaylist = false;
 
-            this.Chooser = new FileChooser(this.data, this.Settings);
-            this.PlayList = new Playlist();
-            if (this.data.Any())
-            {
-
-                this.PlayList.Next = Chooser.ChooseFile();
-                this.PlayList.NextNext = Chooser.ChooseFile();
-            }
+            this.PlayList = new Playlist(new FileChooser(this.data, this.Settings));
         }
 
         private void DefaultView(object sender, RoutedEventArgs e)
         {
             InitPlayList();
-            this.contentControl.Content = new MainControl(this.Chooser, this.PlayList);
+            this.contentControl.Content = new MainControl(this.PlayList);
 
         }
 
@@ -110,7 +102,7 @@ namespace FilePicker
             var validatorResult = Validator.Validate(this.Settings);
             if (validatorResult.HasMainFilterError || validatorResult.HasPrevalenceFilterError)
             {
-                MessageBox.Show("Invalid Filters - Can't Scan", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Invalid Filters - Can't Scan - Scan Button should be greyed out at this point.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 

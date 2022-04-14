@@ -25,7 +25,9 @@ namespace FilePicker
             InitializeComponent();
 
             this.InfoText.Text =
-@"First, go to the Settings Page. On the left, you can add the folders you want to be considered. To remove any, mark them first and then press the X.
+@"This help page is just a short reference for experienced users. If you are new, please visit https://github.com/Tom852/FilePicker for a full manual.
+
+First, go to the Settings Page. On the left, you can add the folders you want to be considered. To remove any, mark them first and then press the X.
 On the next column, you can add prefilters. They are connected and-wise. Filter guideline -> See below.
 On the last column, you can add filter-terms and a relative prevalence of files matching your filter-condition.
 
@@ -34,9 +36,7 @@ Then, you can start opening random files according to your criteria.
 
 Filter variables: Directory, Name, Extension, FullPath, CreatedAt, DaysSinceCreation, ModifiedAt, DaysSinceLastModified, SizeB, SizeK, SizeM, SizeG
 Filter Opreators: =  !=  <  >  <=  >=  =* (Contains)  !* (Not Contains)   ^ (StartsWith)   !^ (NotStartsWith)   $ (EndsWith)   !$ (NotEndsWith)
-Fitler Syntax: , (And)    | (Or)      () (Paranthesis)
-
-See Github Readme for more information and examples.";
+Fitler Syntax: , (And)    | (Or)      () (Paranthesis)";
 
         }
     }

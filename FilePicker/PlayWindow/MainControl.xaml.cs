@@ -25,12 +25,10 @@ namespace FilePicker.PlayWindow
     /// </summary>
     public partial class MainControl : UserControl
     {
-        public FileChooser Chooser { get; }
         public Playlist PlayList { get; }
 
-        public MainControl(FileChooser chooser, Playlist playlist)
+        public MainControl(Playlist playlist)
         {
-            this.Chooser = chooser;
             this.PlayList = playlist;
             this.DataContext = this.PlayList;
 
@@ -41,9 +39,19 @@ namespace FilePicker.PlayWindow
         private void PlayBtn_OnClick(object sender, RoutedEventArgs e)
         {
             
-            FileHandler.Open(this.PlayList.Next);
-            var nextFile = this.Chooser.ChooseFile();
-            this.PlayList.Rotate(nextFile);
+            FileHandler.Open(this.PlayList.Current);
+            this.PlayList.RotateForward();
+        }
+
+        private void BackBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+
+            this.PlayList.RotateBackward();
+        }
+
+        private void FwdBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.PlayList.RotateForward();
         }
 
         private void PlayAgain(object sender, MouseButtonEventArgs e)

@@ -11,7 +11,7 @@
         <Setter Property="Margin" Value="10"></Setter>
         <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="BorderBrush" Value="DeepPink"></Setter>
-        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
 
         <Setter Property="Template">
@@ -19,7 +19,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
                         <Ellipse Stroke="{TemplateBinding BorderBrush}"
-                                 StrokeThickness="{TemplateBinding BorderThickness}"
+                                 StrokeThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness.Top}"
                                  Fill="{TemplateBinding Background}">
                         </Ellipse>
                         <ContentPresenter Content="{TemplateBinding Content}"

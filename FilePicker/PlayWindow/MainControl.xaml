@@ -11,41 +11,100 @@
     </UserControl.Resources>
 
     <StackPanel Orientation="Horizontal">
-        <Button Margin ="100 0 50 0" Name="PlayBtn" Content="Play" Click="PlayBtn_OnClick" Width="222" Height="222" FontSize="48pt" BorderThickness="5px"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin ="100 0 50 0">
+            <Button  Name="BackBtn" Content="▲" Click="BackBtn_OnClick" Width="69" Height="69" FontSize="24pt" BorderThickness="2px"/>
+            <Button  Name="PlayBtn" Content="Play" Click="PlayBtn_OnClick" Width="188" Height="188" FontSize="48pt" BorderThickness="3px"/>
+            <Button  Name="FwdBtn" Content="▼" Click="FwdBtn_OnClick" Width="69" Height="69" FontSize="24pt" BorderThickness="2px"/>
+        </StackPanel>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="PrevPrev">
                 <Label Margin="80 20 20 20" FontSize="10pt" FontWeight="Bold" Content="Before:"/>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Label FontWeight="Bold" FontSize="10pt" Content="{Binding PrevPrev.Directory}"/>
-                    <Label FontWeight="Bold"  FontSize="10pt" Content="{Binding PrevPrev.Name}"/>
+                    <Label FontWeight="Bold"  FontSize="14pt">
+                        <Label.Content>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}{1}">
+                                        <Binding Path="PrevPrev.Name" />
+                                        <Binding Path="PrevPrev.Extension" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="Prev">
                 <Label Margin="40 20 40 20" FontSize="14pt" FontWeight="Bold" Content="Prev:"/>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Label FontWeight="Bold" FontSize="12pt" Content="{Binding Prev.Directory}"/>
-                    <Label FontWeight="Bold" FontSize="12pt" Content="{Binding Prev.Name}"/>
+                    <Label FontWeight="Bold"  FontSize="14pt">
+                        <Label.Content>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}{1}">
+                                        <Binding Path="Prev.Name" />
+                                        <Binding Path="Prev.Extension" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="Current">
                 <Label Margin="0 20 20 20" FontSize="18pt" FontWeight="Bold" Content="Current:"/>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Label FontWeight="Bold"  FontSize="14pt" Content="{Binding Current.Directory}"/>
-                    <Label FontWeight="Bold"  FontSize="14pt" Content="{Binding Current.Name}"/>
+                    <Label FontWeight="Bold"  FontSize="14pt">
+                        <Label.Content>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}{1}">
+                                        <Binding Path="Current.Name" />
+                                        <Binding Path="Current.Extension" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="Next">
                 <Label Margin="40 20 40 20" FontSize="14pt" FontWeight="Bold" Content="Next:"/>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Label FontWeight="Bold"  FontSize="12pt" Content="{Binding Next.Directory}"/>
-                    <Label FontWeight="Bold"  FontSize="12pt" Content="{Binding Next.Name}"/>
+                    <Label FontWeight="Bold"  FontSize="14pt">
+                        <Label.Content>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}{1}">
+                                        <Binding Path="Next.Name" />
+                                        <Binding Path="Next.Extension" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="NextNext">
                 <Label Margin="80 20 30 20" FontSize="10pt" FontWeight="Bold" Content="After:"/>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <Label FontWeight="Bold"  FontSize="10pt" Content="{Binding NextNext.Directory}"/>
-                    <Label FontWeight="Bold"  FontSize="10pt" Content="{Binding NextNext.Name}"/>
+                    <Label FontWeight="Bold"  FontSize="14pt">
+                        <Label.Content>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}{1}">
+                                        <Binding Path="NextNext.Name" />
+                                        <Binding Path="NextNext.Extension" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
