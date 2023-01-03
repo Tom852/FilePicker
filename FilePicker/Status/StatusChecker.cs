@@ -25,6 +25,11 @@ namespace FilePicker.Status
             }
 
             var fcr = Counter.CountFiles(data.AsQueryable(), settings);
+            if (fcr == null) // da der validator nicht alles fehler erkennt mach ich das mal so.
+            {
+                return ApplicationStatusEnum.InvalidFilters;
+            }
+
             if (fcr.FileCountAfterMainFilters == 0)
             {
                 return ApplicationStatusEnum.NoFiles;

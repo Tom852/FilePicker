@@ -10,7 +10,12 @@ namespace FilePicker.Scanner
     {
         public static void Open(FileRepresentation fr)
         {
-            System.Diagnostics.Process.Start(fr.FullPath);
+            Open(fr.FullPath);
+        }
+
+        public static void Open(string path)
+        {
+            System.Diagnostics.Process.Start(path);
         }
 
         public static void ShowInExplorer(FileRepresentation fr)

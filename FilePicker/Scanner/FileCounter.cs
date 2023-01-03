@@ -13,49 +13,58 @@ namespace FilePicker.Scanner
         private FilterValidator Validator { get; } = new FilterValidator();
         public FileCountResult CountFiles(IQueryable<FileRepresentation> data, SettingsModel settings)
         {
+            // der valiator erkennt nicht alle fehler, ist imho ein fehler der library...
+            try
+            {
 
-            var validatorResult = Validator.Validate(settings);
-            if (validatorResult.HasMainFilterError || validatorResult.HasPrevalenceFilterError)
+                var validatorResult = Validator.Validate(settings);
+                if (validatorResult.HasMainFilterError || validatorResult.HasPrevalenceFilterError)
+                {
+                    return null;
+                }
+
+                var result = new FileCountResult();
+
+
+                // apply prefilters geschlossen
+                IQueryable<FileRepresentation> prefilteredData;
+                var builder = new QueryBuilder<FileRepresentation>();
+                settings.MainFilters
+                    .Select(f => f.FilterExpression)
+                    .Where(expr => !string.IsNullOrWhiteSpace(expr))
+                    .ToList()
+                    .ForEach(expr => builder.AddCondition(expr));
+                prefilteredData = builder.Build(data);
+                result.FileCountBeforeMainFilters = data.Count();
+                result.FileCountAfterMainFilters = prefilteredData.Count();
+
+
+
+
+
+                // count each prefilter
+                foreach (var item in settings.MainFilters)
+                {
+                    var count = data.ApplyFiltering(item.FilterExpression).Count();
+                    result.FileCountsForEachMainFilter.Add(count);
+                }
+
+
+                // count prevalences
+                foreach (var item in settings.Prevalences)
+                {
+                    var count = prefilteredData.ApplyFiltering(item.FilterExpression).Count();
+                    result.FileCountsForEachPrevalencePool.Add(count);
+                }
+
+
+                return result;
+            }
+
+            catch
             {
                 return null;
             }
-
-            var result = new FileCountResult();
-
-
-            // apply prefilters geschlossen
-            IQueryable<FileRepresentation> prefilteredData;
-            var builder = new QueryBuilder<FileRepresentation>();
-            settings.MainFilters
-                .Select(f => f.FilterExpression)
-                .Where(expr => !string.IsNullOrWhiteSpace(expr))
-                .ToList()
-                .ForEach(expr => builder.AddCondition(expr));
-            prefilteredData = builder.Build(data);
-            result.FileCountBeforeMainFilters = data.Count();
-            result.FileCountAfterMainFilters = prefilteredData.Count();
-
-
-
-
-
-            // count each prefilter
-            foreach (var item in settings.MainFilters)
-            {
-                var count = data.ApplyFiltering(item.FilterExpression).Count();
-                result.FileCountsForEachMainFilter.Add(count);
-            }
-
-
-            // count prevalences
-            foreach (var item in settings.Prevalences)
-            {
-                var count = prefilteredData.ApplyFiltering(item.FilterExpression).Count();
-                result.FileCountsForEachPrevalencePool.Add(count);
-            }
-
-
-            return result;
         }
     }
 }

@@ -12,13 +12,18 @@ namespace FilePicker.Settings
     {
         private static readonly string appDataFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TomsFilePicker/settings.json");
         private static JsonSerializer serializer = new JsonSerializer();
-        public static SettingsModel Load()
+
+        public static SettingsModel LoadFromAppdata() => Load(appDataFile);
+
+        public static void StoreToAppdata(SettingsModel s) => Store(s, appDataFile);
+
+        public static SettingsModel Load(string path)
         {
-            if (File.Exists(appDataFile))
+            if (File.Exists(path))
             {
                 try
                 {
-                    string raw = File.ReadAllText(appDataFile);
+                    string raw = File.ReadAllText(path);
                     return JsonConvert.DeserializeObject<SettingsModel>(raw);
 
                 } catch
@@ -32,20 +37,20 @@ namespace FilePicker.Settings
             }
         }
 
-        public static void Store(SettingsModel s)
+        public static void Store(SettingsModel s, string path)
         {
-            if (!File.Exists(appDataFile))
+            if (!File.Exists(path))
             {
-                var dir = Path.GetDirectoryName(appDataFile);
+                var dir = Path.GetDirectoryName(path);
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
                 }
-                var fs = File.Create(appDataFile);
+                var fs = File.Create(path);
                 fs.Close();
             }
 
-            using (StreamWriter sw = new StreamWriter(appDataFile))
+            using (StreamWriter sw = new StreamWriter(path))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, s);

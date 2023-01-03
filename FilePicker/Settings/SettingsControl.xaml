@@ -17,7 +17,10 @@
                 <Button Name="RemoveFolders" Content="✖" Margin="20" Click="RemoveFolders_Click"/>
                 <Button Name="AddFolder" Content="➕" Margin="20" Click="AddFolder_Click"/>
             </StackPanel>
-
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="StoreBtn" Content="💾" Margin="20" Click="Store_Click"/>
+                <Button Name="LoadBtn" Content="📂" Margin="20" Click="Load_Click"/>
+            </StackPanel>
         </StackPanel>
         <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Gray" />
         <!--2-->

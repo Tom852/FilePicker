@@ -79,7 +79,7 @@ namespace FilePicker.Settings
                     return;
                 }
                 Ctx.Folders.Add(dialog.SelectedPath);
-                SettingsPersistence.Store(this.Ctx);
+                SettingsPersistence.StoreToAppdata(this.Ctx);
                 this.AppStatus.Status = ApplicationStatusEnum.FilterChanged;
                 this.AppStatus.RequiresNewPlaylist = true;
             }
@@ -97,7 +97,7 @@ namespace FilePicker.Settings
             var item = (sender as FrameworkElement).DataContext;
             int index = MainFiltersListView.Items.IndexOf(item);
             Ctx.MainFilters.RemoveAt(index);
-            SettingsPersistence.Store(this.Ctx);
+            SettingsPersistence.StoreToAppdata(this.Ctx);
             this.AppStatus.Status = ApplicationStatusEnum.FilterChanged;
             this.AppStatus.RequiresNewPlaylist = true;
         }
@@ -112,7 +112,7 @@ namespace FilePicker.Settings
             var item = (sender as FrameworkElement).DataContext;
             int index = PrevalencesFiltersListView.Items.IndexOf(item);
             Ctx.Prevalences.RemoveAt(index);
-            SettingsPersistence.Store(this.Ctx);
+            SettingsPersistence.StoreToAppdata(this.Ctx);
             this.AppStatus.Status = ApplicationStatusEnum.FilterChanged;
             this.AppStatus.RequiresNewPlaylist = true;
         }
@@ -129,7 +129,7 @@ namespace FilePicker.Settings
             if (isValid)
             {
                 item.AdditionalText = "Rescan required";
-                SettingsPersistence.Store(this.Ctx); // da event noch nicht durch ist hier noch das alte zeug drin.
+                SettingsPersistence.StoreToAppdata(this.Ctx); // da event noch nicht durch ist hier noch das alte zeug drin.
                 this.AppStatus.Status = ApplicationStatusEnum.FilterChanged;
             }
             else
@@ -153,7 +153,7 @@ namespace FilePicker.Settings
             if (isValid)
             {
                 item.AdditionalText = "Rescan required";
-                SettingsPersistence.Store(this.Ctx); // da event noch nicht durch ist hier noch das alte zeug drin.
+                SettingsPersistence.StoreToAppdata(this.Ctx); // da event noch nicht durch ist hier noch das alte zeug drin.
                 this.AppStatus.Status = ApplicationStatusEnum.FilterChanged;
             }
             else
@@ -166,7 +166,7 @@ namespace FilePicker.Settings
 
         private void OnLoseFocus(object sender, RoutedEventArgs e)
         {
-            SettingsPersistence.Store(this.Ctx);
+            SettingsPersistence.StoreToAppdata(this.Ctx);
         }
 
         private void PrevalenceTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -222,6 +222,49 @@ namespace FilePicker.Settings
                 {
                     Ctx.Prevalences[i].AdditionalText = $"{count} files in pool";
                 }
+            }
+        }
+
+        private void Store_Click(object sender, RoutedEventArgs e)
+        {
+            var r = new System.Windows.Forms.SaveFileDialog();
+            r.InitialDirectory = GetInitialPath();
+            r.DefaultExt = "json";
+            r.AddExtension = true;
+            var x = r.ShowDialog();
+            if (x == System.Windows.Forms.DialogResult.OK)
+            {
+                SettingsPersistence.Store(this.Ctx, r.FileName);
+            }
+        }
+
+        private void Load_Click(object sender, RoutedEventArgs e)
+        {
+            var r = new System.Windows.Forms.OpenFileDialog();
+            r.InitialDirectory = GetInitialPath();
+            var x = r.ShowDialog();
+            if (x == System.Windows.Forms.DialogResult.OK)
+            {
+                var res =  SettingsPersistence.Load(r.FileName);
+                this.Ctx = res;
+                this.DataContext = res;
+                this.AppStatus.Status = ApplicationStatusEnum.FilterChanged;
+                this.AppStatus.RequiresNewPlaylist = true; // wenn man den gleiche lädt aber fuck it. ist eh verhunzt der code.
+                SettingsPersistence.StoreToAppdata(res);
+            }
+        }
+
+        private static string GetInitialPath()
+        {
+            var path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TomsFilePicker");
+
+            if (Directory.Exists(path))
+            {
+                return path;
+            }
+            else
+            {
+                return @"C:\";
             }
         }
     }

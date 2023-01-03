@@ -38,7 +38,7 @@ namespace FilePicker
 
             this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
-            Settings = SettingsPersistence.Load();
+            Settings = SettingsPersistence.LoadFromAppdata();
 
             this.sqLiteService = new SqLiteService();
             this.data = sqLiteService.ReadData();
@@ -65,7 +65,7 @@ namespace FilePicker
 
         private void InitPlayList()
         {
-            if (!this.ApplicationStatus.RequiresNewPlaylist)
+            if (!this.ApplicationStatus.RequiresNewPlaylist) // das iwie komisch... ich würd bei jedem scan einfach ne neue list ewrwarten...
             {
                 return;
             }
@@ -89,7 +89,7 @@ namespace FilePicker
             var s = new SettingsControl(this.Settings, fileCountResult, this.ApplicationStatus);
             s.Unloaded += (a, b) =>
             {
-                SettingsPersistence.Store(Settings);
+                SettingsPersistence.StoreToAppdata(Settings);
                 OnScanFinished -= (_, fcr) => s.SetAdditionalInfoTexts(fcr);
             };
             this.contentControl.Content = s;
@@ -99,6 +99,7 @@ namespace FilePicker
         private async void Scan(object sender, RoutedEventArgs e)
         {
             // button should be greyed out but check for safety.
+            this.Settings = SettingsPersistence.LoadFromAppdata();
             var validatorResult = Validator.Validate(this.Settings);
             if (validatorResult.HasMainFilterError || validatorResult.HasPrevalenceFilterError)
             {

@@ -10,11 +10,14 @@
         <ResourceDictionary Source="pack://application:,,,/FilePicker;component/ButtonStyle.xaml"/>
     </UserControl.Resources>
 
-    <StackPanel Orientation="Horizontal">
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin ="100 0 50 0">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Orientation="Vertical" VerticalAlignment="Center" Margin ="100 0 50 0">
             <Button  Name="BackBtn" Content="▲" Click="BackBtn_OnClick" Width="69" Height="69" FontSize="24pt" BorderThickness="2px"/>
             <Button  Name="PlayBtn" Content="Play" Click="PlayBtn_OnClick" Width="188" Height="188" FontSize="48pt" BorderThickness="3px"/>
             <Button  Name="FwdBtn" Content="▼" Click="FwdBtn_OnClick" Width="69" Height="69" FontSize="24pt" BorderThickness="2px"/>
+        </StackPanel>
+        <StackPanel Margin="10" DockPanel.Dock="Right">
+            <Button  Name="VlcBtn" Content="📼" Click="Vlc_OnClick" Width="69" Height="69" FontSize="24pt" BorderThickness="2px" ToolTip="Generate VLC Playlist"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" MouseLeftButtonDown="PlayAgain" MouseRightButtonDown="ShowInExplorer" Tag="PrevPrev">
@@ -108,5 +111,5 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </DockPanel>
 </UserControl>

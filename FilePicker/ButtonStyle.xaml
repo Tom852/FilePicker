@@ -10,8 +10,8 @@
         <Setter Property="Foreground" Value="Black"></Setter>
         <Setter Property="Margin" Value="10"></Setter>
         <Setter Property="Background" Value="Transparent"></Setter>
-        <Setter Property="BorderBrush" Value="DeepPink"></Setter>
-        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="BorderBrush" Value="#5300c7"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
 
         <Setter Property="Template">

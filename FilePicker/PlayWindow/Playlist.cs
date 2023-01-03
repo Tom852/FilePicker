@@ -11,6 +11,7 @@ namespace FilePicker.PlayWindow
 {
     public class Playlist : INotifyPropertyChanged
     {
+        private const int PlayListSize = 50;
         private FileChooser fileChooser;
         private LinkedList<FileRepresentation> data = new LinkedList<FileRepresentation>();
         private LinkedListNode<FileRepresentation> currentNode;
@@ -46,6 +47,31 @@ namespace FilePicker.PlayWindow
                 currentNode = currentNode.Previous;
             }
             NotifyAll();
+        }
+
+        public async Task<LinkedList<FileRepresentation>> Add50FilesFromCurrentAndReturnWithoutRotating()
+        {
+            return await Task.Run(() =>
+            {
+
+                LinkedList<FileRepresentation> result = new LinkedList<FileRepresentation>();
+                var n = this.currentNode;
+                result.AddLast(n.Value);
+
+                for (int i = 0; i < PlayListSize; i++)
+                {
+                    if (n.Next is null)
+                    {
+                        n = this.data.AddLast(this.fileChooser.ChooseFile());
+                    }
+                    else
+                    {
+                        n = n.Next;
+                    }
+                    result.AddLast(n.Value);
+                }
+                return result;
+            });
         }
 
         private void PopulatePlaylist()

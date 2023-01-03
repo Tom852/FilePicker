@@ -26,11 +26,13 @@ namespace FilePicker.PlayWindow
     public partial class MainControl : UserControl
     {
         public Playlist PlayList { get; }
+        private VlcPlaylistGenerator playlistGen { get; }
 
         public MainControl(Playlist playlist)
         {
             this.PlayList = playlist;
             this.DataContext = this.PlayList;
+            this.playlistGen = new VlcPlaylistGenerator();
 
             InitializeComponent();
          }
@@ -52,6 +54,13 @@ namespace FilePicker.PlayWindow
         private void FwdBtn_OnClick(object sender, RoutedEventArgs e)
         {
             this.PlayList.RotateForward();
+        }
+
+        private async void Vlc_OnClick(object sender, RoutedEventArgs e)
+        {
+            var files = await this.PlayList.Add50FilesFromCurrentAndReturnWithoutRotating();
+            var pl = this.playlistGen.CreateXpfPlaylist(files);
+            FileHandler.Open(pl);
         }
 
         private void PlayAgain(object sender, MouseButtonEventArgs e)

@@ -39,7 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>documents.ico</ApplicationIcon>
+    <ApplicationIcon>w8cb.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -48,8 +48,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Gridify, Version=2.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gridify.2.7.1\lib\netstandard2.0\Gridify.dll</HintPath>
+    <Reference Include="Gridify, Version=2.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gridify.2.8.2\lib\netstandard2.0\Gridify.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -97,6 +97,7 @@
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PlayWindow\FileChooser.cs" />
+    <Compile Include="PlayWindow\VlcPlayListGenerator.cs" />
     <Compile Include="PlayWindow\Playlist.cs" />
     <Compile Include="ProgressBarBlocker.xaml.cs">
       <DependentUpon>ProgressBarBlocker.xaml</DependentUpon>
@@ -181,7 +182,9 @@
   <ItemGroup>
     <Resource Include="documents.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="w8cb.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
